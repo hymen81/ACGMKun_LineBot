@@ -3,6 +3,8 @@ var express = require('express');
 var file = require('fs');
 var http = require("https");
 
+
+
 var config = JSON.parse(file.readFileSync('config.config', 'utf8'));
 
 var linebot_config = config.linebot_config;
