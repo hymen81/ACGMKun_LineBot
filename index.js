@@ -90,6 +90,8 @@ function getRandomWithSize(size) {
 
 bot.on('message', function (event) {
 
+    console.log('groupID:'+event.source.groupId);
+
 
     function isContainsString(str) {
         return event.message.text.toLowerCase().indexOf(str) != -1;
