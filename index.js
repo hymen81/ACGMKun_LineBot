@@ -85,7 +85,7 @@ bot.on('message', function (event) {
 
 
 
-    if (event.message.type == 'pixiv') {
+    if (event.message.text == 'pixiv') {
         pixiv
             .fetch(url)
             .then(value => {
