@@ -90,6 +90,12 @@ function getRandomWithSize(size) {
 
 bot.on('message', function (event) {
 
+
+    function isContainsString(str) {
+        return event.message.text.toLowerCase().indexOf(str) != -1;
+    }
+
+
     if (isContainsString('艦')) {
         pixiv
             .fetch(pixivImages[getRandomWithArray(pixivImages)])
@@ -144,9 +150,7 @@ bot.on('message', function (event) {
 
     userTextToResponseResultMapping['抽,ドロ,doro'] = [data[getRandom()].link];
 
-    function isContainsString(str) {
-        return event.message.text.toLowerCase().indexOf(str) != -1;
-    }
+  
 
     function replyImage(url) {
         // console.log(getRandom());
