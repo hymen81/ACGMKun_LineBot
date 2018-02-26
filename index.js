@@ -95,13 +95,30 @@ bot.on('message', function (event) {
             .fetch(pixivImages[getRandomWithArray(pixivImages)])
             .then(value => {
                 console.log(value); // {name: '62683748_p0.png'}	
-                
-                replyImage('https://linebotbl.herokuapp.com/images/'+value.name);
 
-                return file.unlink('./images/' + value.name, (err) => {
-                    if (err) throw err;
-                    console.log('successfully deleted ./images/'+value.name);
+                //replyImage('https://linebotbl.herokuapp.com/images/'+value.name);
+
+                var url = 'https://linebotbl.herokuapp.com/images/' + value.name;
+
+                return event.reply({
+                    type: 'image',
+                    originalContentUrl: url,
+                    previewImageUrl: url
+                }).then(function (data) {
+                    // success
+                    return file.unlink('./images/' + value.name, (err) => {
+                        if (err) throw err;
+                        console.log('successfully deleted ./images/' + value.name);
+                    });
+                }).catch(function (error) {
+                    // error
+                    return file.unlink('./images/' + value.name, (err) => {
+                        if (err) throw err;
+                        console.log('successfully deleted ./images/' + value.name);
+                    });
                 });
+
+
 
             })
             .catch(console.log);
@@ -120,7 +137,11 @@ bot.on('message', function (event) {
             type: 'image',
             originalContentUrl: url,
             previewImageUrl: url
-        });
+        }).then(function (data) {
+            // success
+          }).catch(function (error) {
+            // error
+          });
     }
 
     function replyVideo(url) {
