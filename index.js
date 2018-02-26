@@ -154,6 +154,10 @@ bot.on('message', function (event) {
 
     switch (event.message.type) {
         case 'text':
+
+            if (event.source.groupId!='C9f5fe046212c141c9adab227ea81c664')
+                return;
+
             if (isContainsString('update')) {
                 getImageListFromImgur();
                 return replayMessage(update_success_msg_string);
