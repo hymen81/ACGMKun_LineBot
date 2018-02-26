@@ -20,7 +20,10 @@ const pixiv = require('pixiv-img-dl');
 const url = 'https://i.pximg.net/img-original/img/2017/05/01/23/42/02/62683748_p0.png';
 
 
-
+var pixivImages = file.readFileSync('FlanchanRanking.txt').toString().split("\n");
+//for(i in pixivImages) {
+  //  console.log(pixivImages[i]);
+//}
 
 
 function getImageListFromImgur() {
@@ -77,17 +80,19 @@ function getRandom() {
     return Math.floor((Math.random() * data.length));
 }
 
+function getRandomWithArray(arr) {
+    return Math.floor((Math.random() * arr.length));
+}
+
 function getRandomWithSize(size) {
     return Math.floor((Math.random() * size));
 }
 
 bot.on('message', function (event) {
 
-
-
-    if (event.message.text == 'pixiv') {
+    if (event.message.text == '抽艦B') {
         pixiv
-            .fetch(url)
+            .fetch(pixivImages[getRandomWithArray(pixivImages)])
             .then(value => {
                 console.log(value); // {name: '62683748_p0.png'}	
                 
