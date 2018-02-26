@@ -91,9 +91,9 @@ bot.on('message', function (event) {
             .then(value => {
                 console.log(value); // {name: '62683748_p0.png'}	
                 
-                return replyImage('https://linebotbl.herokuapp.com/images/'+value.name);
+                replyImage('https://linebotbl.herokuapp.com/images/'+value.name);
 
-                file.unlink('./images/' + value.name, (err) => {
+                return file.unlink('./images/' + value.name, (err) => {
                     if (err) throw err;
                     console.log('successfully deleted ./images/'+value.name);
                 });
