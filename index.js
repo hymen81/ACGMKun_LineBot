@@ -16,6 +16,13 @@ var bot = linebot({
 
 var data = [];
 
+const pixiv = require('pixiv-img-dl');
+const url = 'https://i.pximg.net/img-original/img/2017/05/01/23/42/02/62683748_p0.png';
+
+
+
+
+
 function getImageListFromImgur() {
     for (var i = 0; i < 21; i++) {
         var options = {
@@ -27,7 +34,7 @@ function getImageListFromImgur() {
         var req = http.request(options, function (res) {
             var chunks = [];
             res.on("data", function (chunk) {
-                chunks.push(chunk);              
+                chunks.push(chunk);
             });
             res.on("end", function () {
                 var body = Buffer.concat(chunks);
@@ -44,19 +51,19 @@ getImageListFromImgur();
 
 var userTextToResponseResultMapping =
     {
-       /* '血月大大': ['https://i.imgur.com/hvQhIw7.jpg', 'https://i.imgur.com/Tv8EuUr.jpg'],
-        '替身': ['https://i.imgur.com/hccZeuC.jpg', 'https://i.imgur.com/wrKZyui.png', 'https://i.imgur.com/6TeLBoM.jpg'],
-        '買': ['https://i.imgur.com/k8IZqXI.jpg', 'https://i.imgur.com/1C6vzkW.jpg', 'https://i.imgur.com/jDQFnGA.jpg', 'https://i.imgur.com/BG9pFSQ.jpg', 'https://i.imgur.com/KOlS7vU.jpg'],
-        '怕': ['https://i.imgur.com/NyH6G89.jpg'],
-        '吉': ['https://i.imgur.com/RBnAvGq.jpg'],
-        '廢球': ['https://i.imgur.com/d5l6IHB.jpg'],
-        'the world': ['https://i.imgur.com/2IZODco.jpg', 'https://i.imgur.com/URsVJ3m.jpg'],
-        '吃': ['https://i.imgur.com/SU4uea8.jpg', 'https://i.imgur.com/HxenSJR.png', 'https://i.imgur.com/pEcfeO7.gif',
-        'https://i.imgur.com/jNUAuAp.jpg', 'https://i.imgur.com/0GECLoM.jpg'],
-        '53': ['53大雞雞', '53逼母'],
-        '快思考,想想': ['https://i.imgur.com/FIC2CK8.jpg'],
-        '童貞,統真': ['https://i.imgur.com/63D07no.jpg'],
-        '白白熊,泓任': ['https://i.imgur.com/w3ClWm4.jpg']*/
+        /* '血月大大': ['https://i.imgur.com/hvQhIw7.jpg', 'https://i.imgur.com/Tv8EuUr.jpg'],
+         '替身': ['https://i.imgur.com/hccZeuC.jpg', 'https://i.imgur.com/wrKZyui.png', 'https://i.imgur.com/6TeLBoM.jpg'],
+         '買': ['https://i.imgur.com/k8IZqXI.jpg', 'https://i.imgur.com/1C6vzkW.jpg', 'https://i.imgur.com/jDQFnGA.jpg', 'https://i.imgur.com/BG9pFSQ.jpg', 'https://i.imgur.com/KOlS7vU.jpg'],
+         '怕': ['https://i.imgur.com/NyH6G89.jpg'],
+         '吉': ['https://i.imgur.com/RBnAvGq.jpg'],
+         '廢球': ['https://i.imgur.com/d5l6IHB.jpg'],
+         'the world': ['https://i.imgur.com/2IZODco.jpg', 'https://i.imgur.com/URsVJ3m.jpg'],
+         '吃': ['https://i.imgur.com/SU4uea8.jpg', 'https://i.imgur.com/HxenSJR.png', 'https://i.imgur.com/pEcfeO7.gif',
+         'https://i.imgur.com/jNUAuAp.jpg', 'https://i.imgur.com/0GECLoM.jpg'],
+         '53': ['53大雞雞', '53逼母'],
+         '快思考,想想': ['https://i.imgur.com/FIC2CK8.jpg'],
+         '童貞,統真': ['https://i.imgur.com/63D07no.jpg'],
+         '白白熊,泓任': ['https://i.imgur.com/w3ClWm4.jpg']*/
     };
 
 var update_success_msg_string = '梗圖快取更新完成!';
@@ -75,6 +82,26 @@ function getRandomWithSize(size) {
 }
 
 bot.on('message', function (event) {
+
+
+
+    if (event.message.type == 'pixiv') {
+        pixiv
+            .fetch(url)
+            .then(value => {
+                console.log(value); // {name: '62683748_p0.png'}	
+                
+                return replyImage('https://linebotbl.herokuapp.com/images/'+value.name);
+
+                file.unlink('./images/' + value.name, (err) => {
+                    if (err) throw err;
+                    console.log('successfully deleted ./images/'+value.name);
+                });
+
+            })
+            .catch(console.log);
+    }
+
 
     userTextToResponseResultMapping['抽,ドロ,doro'] = [data[getRandom()].link];
 
@@ -126,8 +153,8 @@ bot.on('message', function (event) {
             }
 
             //if(event.message.text == 'zxcvb')
-              //  for(var i = 0;i<20;i++)
-                //    replyImage(data[getRandom()].link);
+            //  for(var i = 0;i<20;i++)
+            //    replyImage(data[getRandom()].link);
 
             switch (event.message.text) {
                 case 'Me':
@@ -239,6 +266,10 @@ app.get('/refreshImageList', function (req, res) {
     getImageListFromImgur();
     res.send('refresh image!');
 });
+
+app.use(express.static('public'));
+//Serves all the request which includes /images in the url from Images folder
+app.use('/images', express.static(__dirname + '/images'));
 
 var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
