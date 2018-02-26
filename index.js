@@ -101,23 +101,7 @@ bot.on('message', function (event) {
     }
 
 
-    if (event.source.groupId!='C9f5fe046212c141c9adab227ea81c664' && isContainsString('艦')) {
-        pixiv
-            .fetch(pixivImages[getRandomWithArray(pixivImages)])
-            .then(value => {
-                console.log(value); // {name: '62683748_p0.png'}	
-
-        //replyImage('https://linebotbl.herokuapp.com/images/'+value.name);
-
-        var url = 'https://linebotbl.herokuapp.com/images/' + value.name;
-
-        return event.reply({
-            type: 'image',
-            originalContentUrl: url,
-            previewImageUrl: url
-        });
-    });
-    }
+  
 
 
     userTextToResponseResultMapping['抽,ドロ,doro'] = [data[getRandom()].link];
@@ -154,6 +138,32 @@ bot.on('message', function (event) {
 
     switch (event.message.type) {
         case 'text':
+
+            if (event.source.groupId!='C9f5fe046212c141c9adab227ea81c664' && isContainsString('艦')) {
+                pixiv
+                    .fetch(pixivImages[getRandomWithArray(pixivImages)])
+                    .then(value => {
+                        console.log(value); // {name: '62683748_p0.png'}	
+
+                //replyImage('https://linebotbl.herokuapp.com/images/'+value.name);
+
+                var url = 'https://linebotbl.herokuapp.com/images/' + value.name;
+
+                return event.reply({
+                    type: 'image',
+                    originalContentUrl: url,
+                    previewImageUrl: url
+                });
+            });
+    }
+
+
+    
+
+    
+
+
+
 
             if (event.source.groupId!='C9f5fe046212c141c9adab227ea81c664')
                 return;
