@@ -106,7 +106,7 @@ bot.on('message', function (event) {
 
                 //replyImage('https://linebotbl.herokuapp.com/images/'+value.name);
 
-                var url = 'https://linebotbl.herokuapp.com/images/' + value.name;
+               // var url = 'https://linebotbl.herokuapp.com/images/' + value.name;
 
                 return event.reply({
                     type: 'image',
