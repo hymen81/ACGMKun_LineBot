@@ -90,7 +90,7 @@ function getRandomWithSize(size) {
 
 bot.on('message', function (event) {
 
-    if (event.message.text == '抽艦B') {
+    if (event.message.text == '艦') {
         pixiv
             .fetch(pixivImages[getRandomWithArray(pixivImages)])
             .then(value => {
