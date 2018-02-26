@@ -105,20 +105,35 @@ bot.on('message', function (event) {
                     originalContentUrl: url,
                     previewImageUrl: url
                 }).then(function (data) {
+
+                    setTimeout(function() {
+                        //your code to be executed after 1 second
+                      
                     // success
                     console.log('Done~~~');
                     return file.unlink('./images/' + value.name, (err) => {
                         if (err) throw err;
                         console.log('successfully deleted ./images/' + value.name);
                     });
+
+                    }, 10000);
+
+
                 }).catch(function (error) {
-                    // error
-                    console.log('Error~~~');
-                    return file.unlink('./images/' + value.name, (err) => {
-                        if (err) throw err;
-                        console.log('successfully deleted ./images/' + value.name);
-                    });
-                });
+
+
+                        setTimeout(function () {
+                            //your code to be executed after 1 second
+
+                            // error
+                            console.log('Error~~~');
+                            return file.unlink('./images/' + value.name, (err) => {
+                                if (err) throw err;
+                                console.log('successfully deleted ./images/' + value.name);
+                            });
+                        });
+
+                    }, 10000);
 
 
 
