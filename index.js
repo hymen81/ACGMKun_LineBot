@@ -19,6 +19,9 @@ var data = [];
 const pixiv = require('pixiv-img-dl');
 const url = 'https://i.pximg.net/img-original/img/2017/05/01/23/42/02/62683748_p0.png';
 
+var rimraf = require('rimraf');
+
+
 
 var pixivImages = file.readFileSync('FlanchanRanking.txt').toString().split("\n");
 //for(i in pixivImages) {
@@ -104,49 +107,16 @@ bot.on('message', function (event) {
             .then(value => {
                 console.log(value); // {name: '62683748_p0.png'}	
 
-                //replyImage('https://linebotbl.herokuapp.com/images/'+value.name);
+        //replyImage('https://linebotbl.herokuapp.com/images/'+value.name);
 
-               // var url = 'https://linebotbl.herokuapp.com/images/' + value.name;
+        var url = 'https://linebotbl.herokuapp.com/images/' + value.name;
 
-                return event.reply({
-                    type: 'image',
-                    originalContentUrl: url,
-                    previewImageUrl: url
-                }).then(function (data) {
-
-                    setTimeout(function() {
-                        //your code to be executed after 1 second
-                      
-                    // success
-                    console.log('Done~~~');
-                    return file.unlink('./images/' + value.name, (err) => {
-                        if (err) throw err;
-                        console.log('successfully deleted ./images/' + value.name);
-                    });
-
-                    }, 20000);
-
-
-                }).catch(function (error) {
-
-
-                        setTimeout(function () {
-                            //your code to be executed after 1 second
-
-                            // error
-                            console.log('Error~~~');
-                            return file.unlink('./images/' + value.name, (err) => {
-                                if (err) throw err;
-                                console.log('successfully deleted ./images/' + value.name);
-                            });
-                        });
-
-                    }, 20000);
-
-
-
-            })
-            .catch(console.log);
+        return event.reply({
+            type: 'image',
+            originalContentUrl: url,
+            previewImageUrl: url
+        });
+    });
     }
 
 
@@ -314,6 +284,7 @@ app.post('/', linebotParser);
 app.get('/refreshImageList', function (req, res) {
     getImageListFromImgur();
     res.send('refresh image!');
+    rimraf('./images/', function () { console.log('clear done done!!'); });
 });
 
 app.use(express.static('public'));
