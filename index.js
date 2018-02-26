@@ -106,12 +106,14 @@ bot.on('message', function (event) {
                     previewImageUrl: url
                 }).then(function (data) {
                     // success
+                    console.log('Done~~~');
                     return file.unlink('./images/' + value.name, (err) => {
                         if (err) throw err;
                         console.log('successfully deleted ./images/' + value.name);
                     });
                 }).catch(function (error) {
                     // error
+                    console.log('Error~~~');
                     return file.unlink('./images/' + value.name, (err) => {
                         if (err) throw err;
                         console.log('successfully deleted ./images/' + value.name);
