@@ -98,7 +98,7 @@ bot.on('message', function (event) {
     }
 
 
-    if (isContainsString('艦')) {
+    if (event.source.groupId!='C9f5fe046212c141c9adab227ea81c664' && isContainsString('艦')) {
         pixiv
             .fetch(pixivImages[getRandomWithArray(pixivImages)])
             .then(value => {
@@ -124,7 +124,7 @@ bot.on('message', function (event) {
                         console.log('successfully deleted ./images/' + value.name);
                     });
 
-                    }, 10000);
+                    }, 20000);
 
 
                 }).catch(function (error) {
@@ -141,7 +141,7 @@ bot.on('message', function (event) {
                             });
                         });
 
-                    }, 10000);
+                    }, 20000);
 
 
 
