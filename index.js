@@ -24,8 +24,9 @@ var rimraf = require('rimraf');
 
 
 var pixivImages = file.readFileSync('FlanchanRanking.txt').toString().split("\n");
+var pixivTirpitzImages = file.readFileSync('TirpitzFlanchanRanking.txt').toString().split("\n");
 //for(i in pixivImages) {
-  //  console.log(pixivImages[i]);
+//  console.log(pixivImages[i]);
 //}
 
 
@@ -93,20 +94,14 @@ function getRandomWithSize(size) {
 
 bot.on('message', function (event) {
 
-    console.log('groupID:'+event.source.groupId);
+    console.log('groupID:' + event.source.groupId);
 
 
     function isContainsString(str) {
         return event.message.text.toLowerCase().indexOf(str) != -1;
     }
 
-
-  
-
-
     userTextToResponseResultMapping['抽,ドロ,doro'] = [data[getRandom()].link];
-
-  
 
     function replyImage(url) {
         // console.log(getRandom());
@@ -116,9 +111,9 @@ bot.on('message', function (event) {
             previewImageUrl: url
         }).then(function (data) {
             // success
-          }).catch(function (error) {
+        }).catch(function (error) {
             // error
-          });
+        });
     }
 
     function replyVideo(url) {
@@ -134,38 +129,38 @@ bot.on('message', function (event) {
         event.reply(msg);
     }
 
-
-
     switch (event.message.type) {
         case 'text':
 
-            if (event.source.groupId!='C9f5fe046212c141c9adab227ea81c664' && isContainsString('艦')) {
+        if (event.source.groupId != 'C9f5fe046212c141c9adab227ea81c664' && isContainsString('抽B叔艦老婆')) {
+            pixiv
+                .fetch(pixivTirpitzImages[getRandomWithArray(pixivTirpitzImages)])
+                .then(value => {
+                    console.log(value); // {name: 'xxx.png'}	
+                    var url = 'https://linebotbl.herokuapp.com/images/' + value.name;
+                    return event.reply({
+                        type: 'image',
+                        originalContentUrl: url,
+                        previewImageUrl: url
+                    });
+                });
+        }
+
+            if (event.source.groupId != 'C9f5fe046212c141c9adab227ea81c664' && isContainsString('艦')) {
                 pixiv
                     .fetch(pixivImages[getRandomWithArray(pixivImages)])
                     .then(value => {
-                        console.log(value); // {name: '62683748_p0.png'}	
+                        console.log(value); // {name: 'xxx.png'}	
+                        var url = 'https://linebotbl.herokuapp.com/images/' + value.name;
+                        return event.reply({
+                            type: 'image',
+                            originalContentUrl: url,
+                            previewImageUrl: url
+                        });
+                    });
+            }
 
-                //replyImage('https://linebotbl.herokuapp.com/images/'+value.name);
-
-                var url = 'https://linebotbl.herokuapp.com/images/' + value.name;
-
-                return event.reply({
-                    type: 'image',
-                    originalContentUrl: url,
-                    previewImageUrl: url
-                });
-            });
-    }
-
-
-    
-
-    
-
-
-
-
-            if (event.source.groupId!='C9f5fe046212c141c9adab227ea81c664')
+            if (event.source.groupId != 'C9f5fe046212c141c9adab227ea81c664')
                 return;
 
             if (isContainsString('update')) {
@@ -184,110 +179,6 @@ bot.on('message', function (event) {
                             return replyImage(valueInUserTextToResponseResultMapping);
                     }
             }
-
-            //if(event.message.text == 'zxcvb')
-            //  for(var i = 0;i<20;i++)
-            //    replyImage(data[getRandom()].link);
-
-            switch (event.message.text) {
-                case 'Me':
-                    /* event.source.profile().then(function (profile) {
-						return event.reply('Hello ' + profile.displayName + ' ' + profile.userId);
-					}); */
-                    break;
-                case 'Picture':
-                    /* event.reply({
-						type: 'image',
-						originalContentUrl: 'https://d.line-scdn.net/stf/line-lp/family/en-US/190X190_line_me.png',
-						previewImageUrl: 'https://d.line-scdn.net/stf/line-lp/family/en-US/190X190_line_me.png'
-					}); */
-                    break;
-                case '?':
-                    /* event.reply({
-						type: 'image',
-						originalContentUrl: 'https://dvblobcdnea.azureedge.net//Content/Upload/Popular/Images/2017-06/e99e6b5e-ca6c-4c19-87b7-dfd63db6381a_m.jpg',
-						previewImageUrl: 'https://dvblobcdnea.azureedge.net//Content/Upload/Popular/Images/2017-06/e99e6b5e-ca6c-4c19-87b7-dfd63db6381a_m.jpg'
-					}); */
-                    break;
-                case 'Location':
-                    /* event.reply({
-						type: 'location',
-						title: 'LINE Plus Corporation',
-						address: '1 Empire tower, Sathorn, Bangkok 10120, Thailand',
-						latitude: 13.7202068,
-						longitude: 100.5298698
-					}); */
-                    break;
-                case 'Push':
-                    // bot.push('U6350b7606935db981705282747c82ee1', ['Hey!', '?????? ' + String.fromCharCode(0xD83D, 0xDE01)]);
-                    break;
-                case 'Push2':
-                    // bot.push(['U6350b7606935db981705282747c82ee1', 'U6350b7606935db981705282747c82ee1'], ['Hey!', '?????? ' + String.fromCharCode(0xD83D, 0xDE01)]);
-                    break;
-                case 'Multicast':
-                    // bot.push(['U6350b7606935db981705282747c82ee1', 'U6350b7606935db981705282747c82ee1'], 'Multicast!');
-                    break;
-                case 'Confirm':
-                    // event.reply({
-                    // 	type: 'template',
-                    // 	altText: 'this is a confirm template',
-                    // 	template: {
-                    // 		type: 'confirm',
-                    // 		text: 'Are you sure?',
-                    // 		actions: [{
-                    // 			type: 'message',
-                    // 			label: 'Yes',
-                    // 			text: 'yes'
-                    // 		}, {
-                    // 			type: 'message',
-                    // 			label: 'No',
-                    // 			text: 'no'
-                    // 		}]
-                    // 	}
-                    // });
-                    break;
-                case 'Multiple':
-                    // return event.reply(['Line 1', 'Line 2', 'Line 3', 'Line 4', 'Line 5']);
-                    break;
-                case 'Version':
-                    //event.reply('linebot@' + require('../package.json').version);
-                    break;
-                default:
-                    /* 	event.reply(event.message.text).then(function (data) {
-							console.log('Success', data);
-						}).catch(function (error) {
-							console.log('Error', error);
-						}); */
-                    break;
-            }
-            break;
-        /* case 'image':
-            event.message.content().then(function (data) {
-                const s = data.toString('base64').substring(0, 30);
-                return event.reply('Nice picture! ' + s);
-            }).catch(function (err) {
-                return event.reply(err.toString());
-            });
-            break;
-        case 'video':
-            event.reply('Nice movie!');
-            break;
-        case 'audio':
-            event.reply('Nice song!');
-            break;
-        case 'location':
-            event.reply(['That\'s a good location!', 'Lat:' + event.message.latitude, 'Long:' + event.message.longitude]);
-            break;
-        case 'sticker':
-            event.reply({
-                type: 'sticker',
-                packageId: 1,
-                stickerId: 1
-            });
-            break; */
-        /* default:
-            event.reply('Unknow message: ' + JSON.stringify(event));
-            break; */
     }
 });
 
