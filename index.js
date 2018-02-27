@@ -132,9 +132,9 @@ bot.on('message', function (event) {
     switch (event.message.type) {
         case 'text':
 
-        console.log(event.source.userId);
+       // console.log(event.source.userId);
 
-        if (event.source.groupId != 'C9f5fe046212c141c9adab227ea81c664' && isContainsString('抽老婆')) {
+        if (event.source.userId == 'U5cbf07ca3d09531a79e8ab7eb250ae01' && isContainsString('抽老婆')) {
             pixiv
                 .fetch(pixivTirpitzImages[getRandomWithArray(pixivTirpitzImages)])
                 .then(value => {
