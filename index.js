@@ -1,7 +1,10 @@
 var linebot = require('linebot');
 var express = require('express');
+var serveIndex = require('serve-index');
 var file = require('fs');
 var http = require("https");
+
+
 
 var config = JSON.parse(file.readFileSync('config.config', 'utf8'));
 
@@ -132,21 +135,21 @@ bot.on('message', function (event) {
     switch (event.message.type) {
         case 'text':
 
-       // console.log(event.source.userId);
+            // console.log(event.source.userId);
 
-        if (event.source.userId == 'U5cbf07ca3d09531a79e8ab7eb250ae01' && isContainsString('抽老婆')) {
-            pixiv
-                .fetch(pixivTirpitzImages[getRandomWithArray(pixivTirpitzImages)])
-                .then(value => {
-                    console.log(value); // {name: 'xxx.png'}	
-                    var url = 'https://linebotbl.herokuapp.com/images/' + value.name;
-                    return event.reply({
-                        type: 'image',
-                        originalContentUrl: url,
-                        previewImageUrl: url
+            if (event.source.userId == 'U5cbf07ca3d09531a79e8ab7eb250ae01' && isContainsString('抽老婆')) {
+                pixiv
+                    .fetch(pixivTirpitzImages[getRandomWithArray(pixivTirpitzImages)])
+                    .then(value => {
+                        console.log(value); // {name: 'xxx.png'}	
+                        var url = 'https://linebotbl.herokuapp.com/images/' + value.name;
+                        return event.reply({
+                            type: 'image',
+                            originalContentUrl: url,
+                            previewImageUrl: url
+                        });
                     });
-                });
-        }
+            }
 
             if (event.source.groupId != 'C9f5fe046212c141c9adab227ea81c664' && isContainsString('艦')) {
                 pixiv
@@ -196,7 +199,8 @@ app.get('/refreshImageList', function (req, res) {
 
 app.use(express.static('public'));
 //Serves all the request which includes /images in the url from Images folder
-app.use('/images', express.static(__dirname + '/images'));
+app.use('/images', express.static(__dirname + '/images'), serveIndex('images', {'icons': true}));
+
 
 var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
