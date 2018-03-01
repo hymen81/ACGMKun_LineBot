@@ -137,9 +137,11 @@ bot.on('message', function (event) {
 
             // console.log(event.source.userId);
 
-            if (event.source.userId == 'U5cbf07ca3d09531a79e8ab7eb250ae01' && isContainsString('抽老婆')) {
+           
+
+            if (event.source.groupId != 'C9f5fe046212c141c9adab227ea81c664' && isContainsString('艦')) {
                 pixiv
-                    .fetch(pixivTirpitzImages[getRandomWithArray(pixivTirpitzImages)])
+                    .fetch(pixivImages[getRandomWithArray(pixivImages)])
                     .then(value => {
                         console.log(value); // {name: 'xxx.png'}	
                         var url = 'https://linebotbl.herokuapp.com/images/' + value.name;
@@ -151,9 +153,9 @@ bot.on('message', function (event) {
                     });
             }
 
-            if (event.source.groupId != 'C9f5fe046212c141c9adab227ea81c664' && isContainsString('艦')) {
+            if (event.source.userId == 'U5cbf07ca3d09531a79e8ab7eb250ae01' && isContainsString('抽老婆')) {
                 pixiv
-                    .fetch(pixivImages[getRandomWithArray(pixivImages)])
+                    .fetch(pixivTirpitzImages[getRandomWithArray(pixivTirpitzImages)])
                     .then(value => {
                         console.log(value); // {name: 'xxx.png'}	
                         var url = 'https://linebotbl.herokuapp.com/images/' + value.name;
