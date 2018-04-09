@@ -137,9 +137,14 @@ bot.on('message', function (event) {
 
             // console.log(event.source.userId);
 
-           
+            
+			var acgmAzurGroup = 'Cc9ac44ec441958449f9091ebe252661e';
+			var acgmShitGameGroup = 'C9f5fe046212c141c9adab227ea81c664';
+			
 
-            if (event.source.groupId != 'C9f5fe046212c141c9adab227ea81c664' && isContainsString('艦')) {
+            if ((event.source.groupId == acgmAzurGroup 		
+			|| event.source.groupId == acgmShitGameGroup)
+			&& isContainsString('艦')) {
                 pixiv
                     .fetch(pixivImages[getRandomWithArray(pixivImages)])
                     .then(value => {
@@ -167,7 +172,7 @@ bot.on('message', function (event) {
                     });
             }
 
-            if (event.source.groupId != 'C9f5fe046212c141c9adab227ea81c664')
+            if (event.source.groupId != acgmShitGameGroup)
                 return;
 
             if (isContainsString('update')) {
