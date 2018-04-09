@@ -142,8 +142,8 @@ bot.on('message', function (event) {
 			var acgmShitGameGroup = 'C9f5fe046212c141c9adab227ea81c664';
 			
 
-            if ((event.source.groupId == acgmAzurGroup 		
-			|| event.source.groupId == acgmShitGameGroup)
+            if (event.source.groupId == acgmAzurGroup 		
+			)
 			&& isContainsString('艦')) {
                 pixiv
                     .fetch(pixivImages[getRandomWithArray(pixivImages)])
