@@ -57,8 +57,8 @@ function getImageListFromImgur() {
             res.on("end", function () {
                 var body = Buffer.concat(chunks);
                 var obj = JSON.parse(body.toString());
-                console.log(obj.imgur_list.length);
-                imgur_list = imgur_list.concat(obj.imgur_list);
+                console.log(obj.data.length);
+                imgur_list = imgur_list.concat(obj.data);
             });
         });
         req.end();
