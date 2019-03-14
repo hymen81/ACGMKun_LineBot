@@ -154,7 +154,7 @@ app.post('/', linebotParser);
 app.get('/refreshImageList', function (req, res) {
     getImageListFromImgur();
     res.send('refresh image!');
-    rimraf('./images/', function () { console.log('clear done done!!'); });
+    //rimraf('./images/', function () { console.log('clear done done!!'); });
 });
 
 app.use(express.static('public'));
