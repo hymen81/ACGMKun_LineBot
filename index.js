@@ -131,6 +131,7 @@ bot.on('message', function (event) {
 		    
 	    if (isContainsString('大頭貼')) {
                 	//getImageListFromImgur();
+		        /*
 			var CreateNewImage = function (url, value) {
            		var img = new Image;
             		img.src = url;
@@ -138,11 +139,12 @@ bot.on('message', function (event) {
             		img.height = img.height * (value / 100);
             		var container = document.getElementById ("container");
             		container.appendChild (img);
-      			}		
+      			}
+			*/
 			var totalImages = 100000;
                 	var totalTexts  = totalImages;
 			id = Math.floor(Math.random() * totalImages);
-               		return CreateNewImage('https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg',20);
+               		return replyImage('https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg');
 		    }
 		    
             if (event.source.groupId != acgmShitGameGroup)
@@ -160,18 +162,10 @@ bot.on('message', function (event) {
                             return replyImage(valueInUserTextToResponseResultMapping);
                     }else if (isContainsString('大頭貼')) {
                 	//getImageListFromImgur();
-			var CreateNewImage = function (url, value) {
-           		var img = new Image;
-            		img.src = url;
-            		img.width = img.width * (value / 100);
-            		img.height = img.height * (value / 100);
-            		var container = document.getElementById ("container");
-            		container.appendChild (img);
-      			}		
 			var totalImages = 100000;
                 	var totalTexts  = totalImages;
 			id = Math.floor(Math.random() * totalImages);
-               		return CreateNewImage('https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg',20);
+               		return replyImage('https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg');
 		    }
             }
     }
