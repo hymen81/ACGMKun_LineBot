@@ -3,7 +3,6 @@ var express = require('express');
 var serveIndex = require('serve-index');
 var file = require('fs');
 var http = require("https");
-var sharp = require('sharp');
 
 var config = JSON.parse(file.readFileSync('config.config', 'utf8'));
 
