@@ -179,7 +179,7 @@ bot.on('message', function (event) {
                     var image_file = file.createWriteStream('/app/images');
                     var request = http.get(fullUrl, function(response) {
                         response.pipe(image_file);
-                        sharp.resize({ height: 200, width: 200 }).toFile('/app/des_images');
+                        //sharp.resize({ height: 200, width: 200 }).toFile('/app/des_images');
                     });
 
                		return replyImage('https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg');
