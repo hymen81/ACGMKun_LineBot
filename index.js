@@ -3,6 +3,7 @@ var express = require('express');
 var serveIndex = require('serve-index');
 var file = require('fs');
 var http = require("https");
+var sharp = require('sharp');
 
 var config = JSON.parse(file.readFileSync('config.config', 'utf8'));
 
@@ -170,9 +171,17 @@ bot.on('message', function (event) {
                             return replyImage(valueInUserTextToResponseResultMapping);
                     }else if (isContainsString('大頭貼')) {
                 	//getImageListFromImgur();
-			var totalImages = 100000;
+			        var totalImages = 100000;
                 	var totalTexts  = totalImages;
-			id = Math.floor(Math.random() * totalImages);
+                    id = Math.floor(Math.random() * totalImages);
+                    
+                    var fullUrl = 'https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg';
+                    var image_file = file.createWriteStream('/app/images');
+                    var request = http.get(fullUrl, function(response) {
+                        response.pipe(image_file);
+                        sharp.resize({ height: 200, width: 200 }).toFile('/app/des_images');
+                    });
+
                		return replyImage('https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg');
 		    }
             }
