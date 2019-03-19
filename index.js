@@ -144,6 +144,14 @@ bot.on('message', function (event) {
 			var totalImages = 100000;
                 	var totalTexts  = totalImages;
 			id = Math.floor(Math.random() * totalImages);
+		        
+		    
+		    	var fullUrl = 'https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg';
+			var image_file = file.createWriteStream(__dirname + '/images/tmp.jpg');
+			var request = http.get(fullUrl, function(response) {
+			response.pipe(image_file);
+			});
+		    
                		return replyImage('https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg');
 		    }
 		    
