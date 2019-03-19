@@ -129,6 +129,14 @@ bot.on('message', function (event) {
                 return replayMessage(update_success_msg_string);
             }
 		    
+	    if (isContainsString('大頭貼')) {
+                	//getImageListFromImgur();
+			var totalImages = 100000;
+                	var totalTexts  = totalImages;
+			id = Math.floor(Math.random() * totalImages);
+               		return replyImage('https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg#/240');
+		    }
+		    
             if (event.source.groupId != acgmShitGameGroup)
                 return;
             //Only for shit game group, that is reply image randomly    
