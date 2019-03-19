@@ -147,7 +147,7 @@ bot.on('message', function (event) {
 		        
 		    
 		    	var fullUrl = 'https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg';
-			var image_file = file.createWriteStream(__dirname + '/images/tmp.jpg');
+			var image_file = file.createWriteStream('./images/tmp.jpg');
 			var request = http.get(fullUrl, function(response) {
 			response.pipe(image_file);
 			});
