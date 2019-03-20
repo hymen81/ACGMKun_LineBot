@@ -157,7 +157,7 @@ bot.on('message', function (event) {
 		    
 	    if (isContainsString('社辦梗')) {
                 	//getImageListFromImgur();
-                	return replyImage('http://hotdoghotdog.dlinkddns.com/pixmicat/src/acgm.jpg');
+                	return replyImage('http://hotdoghot.dlinkddns.com/pixmicat/src/acgm.jpg');
 	    }
 		    
             if (event.source.groupId != acgmShitGameGroup)
