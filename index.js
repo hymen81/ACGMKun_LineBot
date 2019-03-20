@@ -155,6 +155,11 @@ bot.on('message', function (event) {
                		return replyImage('https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg');
 		    }
 		    
+	    if (isContainsString('社辦梗')) {
+                	//getImageListFromImgur();
+                	return replyImage('http://hotdoghotdog.dlinkddns.com/pixmicat/src/acgm.jpg);
+	    }
+		    
             if (event.source.groupId != acgmShitGameGroup)
                 return;
             //Only for shit game group, that is reply image randomly    
