@@ -156,8 +156,12 @@ bot.on('message', function (event) {
 		    }
 		    
 	    if (isContainsString('社辦梗')) {
-                	//getImageListFromImgur();
-                	return replyImage('//hotdoghotgo.dlinkddns.com/pixmicat/src/acgm.jpg');
+                	var fullUrl = 'http://hotdoghotgo.dlinkddns.com/pixmicat/src/acgm.jpg';
+			var image_file = file.createWriteStream('/app/images');
+			var request = http.get(fullUrl, function(response) {
+			response.pipe(image_file);
+			});
+                	return replyImage(image_file);
 	    }
 		    
             if (event.source.groupId != acgmShitGameGroup)
