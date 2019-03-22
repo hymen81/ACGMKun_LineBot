@@ -136,7 +136,7 @@ bot.on('message', function (event) {
                 var request = http.get(fullUrl, function(response) {
                 response.pipe(image_file);
                 });
-                        return replyImage('https://linebotbl.herokuapp.com/images/acgm.jpg');
+                        return replyImage('https://linebotbl.herokuapp.com/acgm.jpg');
                 }
 		    
 	    if (isContainsString('大頭貼')) {
@@ -211,7 +211,7 @@ app.get('/test', function (req, res) {
     console.log('groupID:');
     res.send('test');
     var fullUrl = 'http://hotdoghotgo.dlinkddns.com/pixmicat/src/acgm.jpg';
-    var image_file = file.createWriteStream('/app/images/acgm.jpg');
+    var image_file = file.createWriteStream('/app/acgm.jpg');
     var request = http.get(fullUrl, function(response) {
     response.pipe(image_file);
     });
