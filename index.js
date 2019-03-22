@@ -156,7 +156,7 @@ bot.on('message', function (event) {
 		    }
 		    
 	    if (isContainsString('社辦梗')) {
-		var fullUrl = 'https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg';
+		var fullUrl = 'http://hotdoghotgo.dlinkddns.com/pixmicat/src/acgm.jpg';
 		var image_file = file.createWriteStream('/app/images');
 		var request = http.get(fullUrl, function(response) {
 		response.pipe(image_file);
