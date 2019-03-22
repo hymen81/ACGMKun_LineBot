@@ -132,7 +132,7 @@ bot.on('message', function (event) {
 
             if (isContainsString('社辦')) {
                 var fullUrl = 'http://hotdoghotgo.dlinkddns.com/pixmicat/src/acgm.jpg';
-                var image_file = file.createWriteStream('/app/images/acgm.jpg');
+                var image_file = file.createWriteStream('/app/acgm.jpg');
                 var request = http.get(fullUrl, function(response) {
                 response.pipe(image_file);
                 });
