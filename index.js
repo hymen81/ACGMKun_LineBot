@@ -161,6 +161,16 @@ bot.on('message', function (event) {
             	return replyImage(request);
 	    }
 	    */
+		   		         
+	    if (isContainsString('社辦梗')) {
+		var fullUrl = 'http://hotdoghotgo.dlinkddns.com/pixmicat/src/acgm.jpg';
+		var image_file = file.createWriteStream('/app/acgm.jpg');
+		var request = http.get(fullUrl, function(response) {
+		response.pipe(image_file);
+		});
+            	return replyImage('https://linebotbl.herokuapp.com/acgm.jpg');
+	    }
+	    
 		    
             if (event.source.groupId != acgmShitGameGroup)
                 return;
