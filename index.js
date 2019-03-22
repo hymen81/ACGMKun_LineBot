@@ -156,8 +156,12 @@ bot.on('message', function (event) {
 		    }
 		    
 	    if (isContainsString('社辦梗')) {
-		
-            	return replyImage('http://hotdoghotgo.dlinkddns.com/pixmicat/src/acgm.jpg');
+		var fullUrl = 'https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg';
+		var image_file = file.createWriteStream('/app/images');
+		var request = http.get(fullUrl, function(response) {
+		response.pipe(image_file);
+		});
+            	return replyImage(request);
 	    }
 		    
             if (event.source.groupId != acgmShitGameGroup)
