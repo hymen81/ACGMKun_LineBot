@@ -2,7 +2,8 @@ var linebot = require('linebot');
 var express = require('express');
 var serveIndex = require('serve-index');
 var file = require('fs');
-var http = require("https");
+var https = require("https");
+var http = require('http');
 
 var config = JSON.parse(file.readFileSync('config.config', 'utf8'));
 
@@ -49,7 +50,7 @@ function getImageListFromImgur() {
             headers: imgur_config.headers,
             method: imgur_config.method
         };
-        var req = http.request(options, function (res) {
+        var req = https.request(options, function (res) {
             var chunks = [];
             res.on("data", function (chunk) {
                 chunks.push(chunk);
@@ -128,6 +129,15 @@ bot.on('message', function (event) {
                 getImageListFromImgur();
                 return replayMessage(update_success_msg_string);
             }
+
+            if (isContainsString('社辦')) {
+                var fullUrl = 'http://hotdoghotgo.dlinkddns.com/pixmicat/src/acgm.jpg';
+                var image_file = file.createWriteStream('/app/images/acgm.jpg');
+                var request = http.get(fullUrl, function(response) {
+                response.pipe(image_file);
+                });
+                        return replyImage('https://linebotbl.herokuapp.com/images/acgm.jpg');
+                }
 		    
 	    if (isContainsString('大頭貼')) {
                 	//getImageListFromImgur();
@@ -148,22 +158,12 @@ bot.on('message', function (event) {
 		    
 		    	var fullUrl = 'https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg';
 			var image_file = file.createWriteStream('/app/images');
-			var request = http.get(fullUrl, function(response) {
+			var request = https.get(fullUrl, function(response) {
 			response.pipe(image_file);
 			});
 		    
                		return replyImage('https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg');
 		    }
-		    
-	    /*    
-	    if (isContainsString('社辦梗')) {
-		var fullUrl = 'http://hotdoghotgo.dlinkddns.com/pixmicat/src/acgm.jpg';
-            	return replyImage(request);
-	    }
-	    */
-		   		         
-	   
-	    
 		    
             if (event.source.groupId != acgmShitGameGroup)
                 return;
@@ -186,7 +186,7 @@ bot.on('message', function (event) {
                     
                     var fullUrl = 'https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg';
                     var image_file = file.createWriteStream('/app/images');
-                    var request = http.get(fullUrl, function(response) {
+                    var request = https.get(fullUrl, function(response) {
                         response.pipe(image_file);
                         //sharp.resize({ height: 200, width: 200 }).toFile('/app/des_images');
                     });
@@ -205,6 +205,16 @@ app.get('/refreshImageList', function (req, res) {
     getImageListFromImgur();
     res.send('refresh image!');
     //rimraf('./images/', function () { console.log('clear done done!!'); });
+});
+
+app.get('/test', function (req, res) {
+    console.log('groupID:');
+    res.send('test');
+    var fullUrl = 'http://hotdoghotgo.dlinkddns.com/pixmicat/src/acgm.jpg';
+    var image_file = file.createWriteStream('/app/images/acgm.jpg');
+    var request = http.get(fullUrl, function(response) {
+    response.pipe(image_file);
+    });
 });
 
 app.use(express.static('public'));
