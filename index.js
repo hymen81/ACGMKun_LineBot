@@ -211,7 +211,7 @@ app.get('/test', function (req, res) {
     console.log('groupID:');
     res.send('test');
     var fullUrl = 'http://hotdoghotgo.dlinkddns.com/pixmicat/src/acgm.jpg';
-    var image_file = file.createWriteStream('/app/acgm.jpg');
+    var image_file = file.createWriteStream('/app/node_modules/acgm.jpg');
     var request = http.get(fullUrl, function(response) {
     response.pipe(image_file);
     });
@@ -219,7 +219,7 @@ app.get('/test', function (req, res) {
 
 app.use(express.static('public'));
 //Serves all the request which includes /images in the url from Images folder
-app.use('/images', express.static(__dirname + '/images'), serveIndex('images', {'icons': true}));
+app.use('/node_modules', express.static(__dirname + '/node_modules'), serveIndex('node_modules', {'icons': true}));
 
 var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;
