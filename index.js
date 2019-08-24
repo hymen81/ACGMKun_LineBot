@@ -5,6 +5,13 @@ var file = require('fs');
 var https = require("https");
 var http = require('http');
 
+
+//var data = [];
+const pixiv = require('pixiv-img-dl');
+const url = 'https://i.pximg.net/img-original/img/2017/05/01/23/42/02/62683748_p0.png';
+var rimraf = require('rimraf');
+var pixivImages = file.readFileSync('FlanchanRanking.txt').toString().split("\n");
+
 var config = JSON.parse(file.readFileSync('config.config', 'utf8'));
 
 var linebot_config = config.linebot_config;
@@ -119,11 +126,21 @@ bot.on('message', function (event) {
             var acgmShitGameGroup = 'C9f5fe046212c141c9adab227ea81c664';
             			
             if (
-			event.source.groupId == acgmAzurGroup 		
-			&& isContainsString('艦')
-			) {
-                replayMessage(azure_maintains_msg_string)
-            }
+               // event.source.groupId == acgmAzurGroup 		
+             isContainsString('艦')
+                ) {
+                    pixiv
+                        .fetch(pixivImages[getRandomWithArray(pixivImages)])
+                        .then(value => {
+                            console.log(value); // {name: 'xxx.png'}	
+                            var url = 'https://linebotbl.herokuapp.com/images/' + value.name;
+                            return event.reply({
+                                type: 'image',
+                                originalContentUrl: url,
+                                previewImageUrl: url
+                            });
+                        });
+                }
 
             if (isContainsString('update')) {
                 getImageListFromImgur();
@@ -219,6 +236,7 @@ app.get('/test', function (req, res) {
 
 app.use(express.static('public'));
 //Serves all the request which includes /images in the url from Images folder
+app.use('/images', express.static(__dirname + '/images'), serveIndex('images', {'icons': true}));
 app.use('/node_modules', express.static(__dirname + '/node_modules'), serveIndex('node_modules', {'icons': true}));
 
 var server = app.listen(process.env.PORT || 8080, function () {
