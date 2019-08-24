@@ -130,7 +130,7 @@ bot.on('message', function (event) {
              isContainsString('髒圖')
                 ) {
                     pixiv
-                        .fetch(pixivImages[getRandomWithArray(pixivImages)])
+                        .fetch(pixivImages[getRandomWithArray(pixivImages)].replace('\r', ''))
                         .then(value => {
                             console.log(value); // {name: 'xxx.png'}	
                             var url = 'https://linebotbl.herokuapp.com/images/' + value.name;
