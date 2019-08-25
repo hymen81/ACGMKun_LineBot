@@ -127,7 +127,7 @@ bot.on('message', function (event) {
             			
             if (
                // event.source.groupId == acgmAzurGroup 		
-             isContainsString('髒圖')
+             isContainsString('髒圖') && false
                 ) {
                     pixiv
                         .fetch(pixivImages[getRandomWithArray(pixivImages)].replace('\r', ''))
@@ -182,8 +182,8 @@ bot.on('message', function (event) {
                		return replyImage('https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg');
 		    }
 		    
-            if (event.source.groupId != acgmShitGameGroup)
-                return;
+           // if (event.source.groupId != acgmShitGameGroup)
+             //   return;
             //Only for shit game group, that is reply image randomly    
             for (var e in userTextToResponseResultMapping) {
                 var resArray = userTextToResponseResultMapping[e];
