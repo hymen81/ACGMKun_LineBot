@@ -127,7 +127,7 @@ bot.on('message', function (event) {
             			
             if (
                // event.source.groupId == acgmAzurGroup 		
-             isContainsString('髒圖') && false
+             isContainsString('髒圖') 
                 ) {
                     pixiv
                         .fetch(pixivImages[getRandomWithArray(pixivImages)].replace('\r', ''))
