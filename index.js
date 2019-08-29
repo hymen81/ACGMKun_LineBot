@@ -77,6 +77,10 @@ function getRandom() {
     return Math.floor((Math.random() * imgur_list.length));
 }
 
+function getRandomEx(min,max){
+    return Math.floor(Math.random()*(max-min+1))+min;
+};
+
 function getRandomWithArray(arr) {
     return Math.floor((Math.random() * arr.length));
 }
@@ -149,11 +153,12 @@ bot.on('message', function (event) {
 
             if (isContainsString('社辦')) {
                 var fullUrl = 'http://hotdoghotgo.dlinkddns.com/pixmicat/src/acgm.jpg';
-                var image_file = file.createWriteStream('/app/node_modules/acgm.jpg');
+		var random = getRandomEx(1,10000);
+                var image_file = file.createWriteStream('/app/node_modules/'+random+'.jpg');
                 var request = http.get(fullUrl, function(response) {
                 response.pipe(image_file);
                 });
-                        return replyImage('https://linebotbl.herokuapp.com/node_modules/acgm.jpg');
+                        return replyImage('https://linebotbl.herokuapp.com/node_modules/'+random+'.jpg');
                 }
 		    
 	    if (isContainsString('大頭貼')) {
