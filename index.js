@@ -145,6 +145,25 @@ bot.on('message', function (event) {
                             });
                         });
                 }
+	    //AC test 1081115髒髒10連
+ 	    if (
+               // event.source.groupId == acgmAzurGroup 		
+             isContainsString('髒髒十連') 
+                ) {
+		    for i in 0...9 {
+                      pixiv
+			  .fetch(pixivImages[getRandomWithArray(pixivImages)].replace('\r', ''))
+                          .then(value => {
+                              console.log(value); // {name: 'xxx.png'}	
+                              var url = 'https://linebotbl.herokuapp.com/images/' + value.name;
+                              return event.reply({
+                                  type: 'image',
+                                  originalContentUrl: url,
+                                  previewImageUrl: url
+                              });
+                          });
+		    }
+                }
 
             if (isContainsString('update')) {
                 getImageListFromImgur();
