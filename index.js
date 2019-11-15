@@ -150,7 +150,7 @@ bot.on('message', function (event) {
                // event.source.groupId == acgmAzurGroup 		
              isContainsString('髒髒十連') 
                 ) {
-		    for i in 0...9 {
+		    for(var i = 0; i < 10; ++i) {
                       pixiv
 			  .fetch(pixivImages[getRandomWithArray(pixivImages)].replace('\r', ''))
                           .then(value => {
