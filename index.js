@@ -12,6 +12,11 @@ const pixiv = require('pixiv-img-dl');
 const url = 'https://i.pximg.net/img-original/img/2017/05/01/23/42/02/62683748_p0.png';
 var rimraf = require('rimraf');
 
+const keyowrd = ['メガネ', 'ポニ', 'ロリ', 'ストッキング'];
+const keyowrdCN = ['眼鏡', '馬尾', '蘿莉', '絲襪'];
+
+
+
 
 
 var config = JSON.parse(file.readFileSync('config.config', 'utf8'));
@@ -30,8 +35,6 @@ var imgur_list = [];
 var update_success_msg_string = '梗圖快取更新完成!';
 var azure_maintains_msg_string = '維修中';
 var max_image_page_cache_count = 25;
-const keyowrd_glasses = 'メガネ';
-const keyword_poney = 'ポニ';
 
 getImageListFromImgur();
 
@@ -110,6 +113,19 @@ bot.on('message', function (event) {
         event.reply(msg);
     }
 
+    function drawPopularImage(key) {
+        pixivUtils.pixivInitAndDrawPopularImage(key)
+            .then(value => {
+                console.log(value); // {name: 'xxx.png'}	
+                var url = 'https://linebotbl.herokuapp.com/' + value;
+                return event.reply({
+                    type: 'image',
+                    originalContentUrl: url,
+                    previewImageUrl: url
+                });
+            }).catch(error => { console.log('caught', error.message); });
+    }
+
     switch (event.message.type) {
         case 'text':
             var acgmAzurGroup = 'Cc9ac44ec441958449f9091ebe252661e';
@@ -119,41 +135,23 @@ bot.on('message', function (event) {
                 // event.source.groupId == acgmAzurGroup 		
                 isContainsString('髒圖')
             ) {
-                if (isContainsString('眼鏡')) { 
-                    pixivUtils.pixivInitAndDrawPopularImage(keyowrd_glasses)
-                    .then(value => {
-                        console.log(value); // {name: 'xxx.png'}	
-                        var url = 'https://linebotbl.herokuapp.com/' + value;
-                        return event.reply({
-                            type: 'image',
-                            originalContentUrl: url,
-                            previewImageUrl: url
-                        });
-                    }).catch(error => { console.log('caught', error.message); });
-                
-                } else if(isContainsString('馬尾')){
-                    pixivUtils.pixivInitAndDrawPopularImage(keyword_poney)
-                    .then(value => {
-                        console.log(value); // {name: 'xxx.png'}	
-                        var url = 'https://linebotbl.herokuapp.com/' + value;
-                        return event.reply({
-                            type: 'image',
-                            originalContentUrl: url,
-                            previewImageUrl: url
-                        });
-                    }).catch(error => { console.log('caught', error.message); });
-                }else {
-                    pixivUtils.pixivInitAndDrawPRankingImage()
-                        .then(value => {
-                            console.log(value); // {name: 'xxx.png'}	
-                            var url = 'https://linebotbl.herokuapp.com/' + value;
-                            return event.reply({
-                                type: 'image',
-                                originalContentUrl: url,
-                                previewImageUrl: url
-                            });
-                        }).catch(error => { console.log('caught', error.message); });
+                for (var i = 0; i < keyowrdCN.length; i++) {
+                    if (isContainsString(keyowrdCN[i])) {
+                        return drawPopularImage(keyowrd[i]);
+                    }
                 }
+
+                pixivUtils.pixivInitAndDrawPRankingImage()
+                    .then(value => {
+                        console.log(value); // {name: 'xxx.png'}	
+                        var url = 'https://linebotbl.herokuapp.com/' + value;
+                        return event.reply({
+                            type: 'image',
+                            originalContentUrl: url,
+                            previewImageUrl: url
+                        });
+                    }).catch(error => { console.log('caught', error.message); });
+
             }
 
             if (isContainsString('update')) {

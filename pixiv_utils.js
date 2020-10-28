@@ -15,16 +15,21 @@ async function pixivInitAndDrawPopularImage(key) {
             var dateNow = new Date();
             var dateBefore180Days = dateNow.setDate(dateNow.getDate() - 720);
             var dateBefore2Days = dateNow.setDate(dateNow.getDate() - 2);
+            var random = randomDate(new Date(), new Date(dateBefore180Days));
+            
             var options = {
                 sort: 'date_desc',
-                start_date: randomDate(new Date(dateBefore2Days), new Date(dateBefore180Days))
+                start_date: random,
+                end_date: random
             };
             return pixiv.searchIllustPopularPreview(word, options).then(json => {
 
-                var img_url = json.illusts[Math.floor(Math.random() * json.illusts.length)].image_urls.medium
+                var img_url = json.illusts[Math.floor(Math.random() % json.illusts.length)].image_urls.medium
+               // console.log(json.illusts);
                 //var img_url = json.illusts[0].image_urls.medium
                 res = saveImageFromPixivUrl(img_url);
-                // console.log(randomDate(new Date(), new Date(dateBefore180Days)));          
+               // console.log(new Date(), new Date(dateBefore180Days));  
+               // console.log(options.start_date);          
 
 
             })
