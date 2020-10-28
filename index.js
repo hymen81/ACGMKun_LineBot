@@ -13,7 +13,7 @@ const url = 'https://i.pximg.net/img-original/img/2017/05/01/23/42/02/62683748_p
 var rimraf = require('rimraf');
 
 const keyowrd = ['メガネ', 'ポニ', 'ロリ', 'ストッキング'];
-const keyowrdCN = ['眼鏡', '馬尾', '蘿莉', '絲襪'];
+const keyowrdCN = ['眼鏡', '馬尾', '蘿莉', '絲襪']; 
 
 
 
