@@ -119,7 +119,7 @@ bot.on('message', function (event) {
                 // event.source.groupId == acgmAzurGroup 		
                 isContainsString('髒圖')
             ) {
-                if (isContainsString(keyowrd_glasses)) { 
+                if (isContainsString('眼鏡')) { 
                     pixivUtils.pixivInitAndDrawPopularImage(keyowrd_glasses)
                     .then(value => {
                         console.log(value); // {name: 'xxx.png'}	
@@ -131,7 +131,7 @@ bot.on('message', function (event) {
                         });
                     }).catch(error => { console.log('caught', error.message); });
                 
-                } else if(isContainsString(keyword_poney)){
+                } else if(isContainsString('馬尾')){
                     pixivUtils.pixivInitAndDrawPopularImage(keyword_poney)
                     .then(value => {
                         console.log(value); // {name: 'xxx.png'}	
