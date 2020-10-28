@@ -12,6 +12,8 @@ const pixiv = require('pixiv-img-dl');
 const url = 'https://i.pximg.net/img-original/img/2017/05/01/23/42/02/62683748_p0.png';
 var rimraf = require('rimraf');
 
+
+
 var config = JSON.parse(file.readFileSync('config.config', 'utf8'));
 
 var linebot_config = config.linebot_config;
@@ -28,6 +30,8 @@ var imgur_list = [];
 var update_success_msg_string = '梗圖快取更新完成!';
 var azure_maintains_msg_string = '維修中';
 var max_image_page_cache_count = 25;
+const keyowrd_glasses = 'メガネ';
+const keyword_poney = 'ポニ';
 
 getImageListFromImgur();
 
@@ -59,8 +63,8 @@ function getRandom() {
     return Math.floor((Math.random() * imgur_list.length));
 }
 
-function getRandomEx(min,max){
-    return Math.floor(Math.random()*(max-min+1))+min;
+function getRandomEx(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 function getRandomWithArray(arr) {
@@ -75,7 +79,7 @@ bot.on('message', function (event) {
 
     console.log('groupID:' + event.source.groupId);
     console.log('userId:' + event.source.userId);
-    
+
     function isContainsString(str) {
         return event.message.text.toLowerCase().indexOf(str) != -1;
     }
@@ -107,14 +111,38 @@ bot.on('message', function (event) {
     }
 
     switch (event.message.type) {
-        case 'text':     
-			var acgmAzurGroup = 'Cc9ac44ec441958449f9091ebe252661e';
+        case 'text':
+            var acgmAzurGroup = 'Cc9ac44ec441958449f9091ebe252661e';
             var acgmShitGameGroup = 'C9f5fe046212c141c9adab227ea81c664';
-            			
+
             if (
-               // event.source.groupId == acgmAzurGroup 		
-             isContainsString('髒圖') 
-                ) {
+                // event.source.groupId == acgmAzurGroup 		
+                isContainsString('髒圖')
+            ) {
+                if (isContainsString(keyowrd_glasses)) { 
+                    pixivUtils.pixivInitAndDrawPopularImage(keyowrd_glasses)
+                    .then(value => {
+                        console.log(value); // {name: 'xxx.png'}	
+                        var url = 'https://linebotbl.herokuapp.com/' + value;
+                        return event.reply({
+                            type: 'image',
+                            originalContentUrl: url,
+                            previewImageUrl: url
+                        });
+                    }).catch(error => { console.log('caught', error.message); });
+                
+                } else if(isContainsString(keyword_poney)){
+                    pixivUtils.pixivInitAndDrawPopularImage(keyword_poney)
+                    .then(value => {
+                        console.log(value); // {name: 'xxx.png'}	
+                        var url = 'https://linebotbl.herokuapp.com/' + value;
+                        return event.reply({
+                            type: 'image',
+                            originalContentUrl: url,
+                            previewImageUrl: url
+                        });
+                    }).catch(error => { console.log('caught', error.message); });
+                }else {
                     pixivUtils.pixivInitAndDrawPRankingImage()
                         .then(value => {
                             console.log(value); // {name: 'xxx.png'}	
@@ -126,6 +154,7 @@ bot.on('message', function (event) {
                             });
                         }).catch(error => { console.log('caught', error.message); });
                 }
+            }
 
             if (isContainsString('update')) {
                 getImageListFromImgur();
@@ -134,42 +163,42 @@ bot.on('message', function (event) {
 
             if (isContainsString('社辦')) {
                 var fullUrl = 'http://hotdoghotgo.dlinkddns.com/pixmicat/src/acgm.jpg';
-		var random = getRandomEx(1,10000);
-                var image_file = file.createWriteStream('/app/node_modules/'+random+'.jpg');
-                var request = http.get(fullUrl, function(response) {
-                response.pipe(image_file);
+                var random = getRandomEx(1, 10000);
+                var image_file = file.createWriteStream('/app/node_modules/' + random + '.jpg');
+                var request = http.get(fullUrl, function (response) {
+                    response.pipe(image_file);
                 });
-                        return replyImage('https://linebotbl.herokuapp.com/node_modules/'+random+'.jpg');
-                }
-		    
-	    if (isContainsString('大頭貼')) {
-                	//getImageListFromImgur();
-		        /*
-			var CreateNewImage = function (url, value) {
-           		var img = new Image;
-            		img.src = url;
-            		img.width = img.width * (value / 100);
-            		img.height = img.height * (value / 100);
-            		var container = document.getElementById ("container");
-            		container.appendChild (img);
-      			}
-			*/
-			var totalImages = 100000;
-            var totalTexts  = totalImages;
-			id = Math.floor(Math.random() * totalImages);
-		        
-		    
-		    	var fullUrl = 'https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg';
-			var image_file = file.createWriteStream('/app/images');
-			var request = https.get(fullUrl, function(response) {
-			response.pipe(image_file);
-			});
-		    
-               		return replyImage('https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg');
-		    }
-		    
-           // if (event.source.groupId != acgmShitGameGroup)
-             //   return;
+                return replyImage('https://linebotbl.herokuapp.com/node_modules/' + random + '.jpg');
+            }
+
+            if (isContainsString('大頭貼')) {
+                //getImageListFromImgur();
+                /*
+            var CreateNewImage = function (url, value) {
+                        var img = new Image;
+                    img.src = url;
+                    img.width = img.width * (value / 100);
+                    img.height = img.height * (value / 100);
+                    var container = document.getElementById ("container");
+                    container.appendChild (img);
+                    }
+            */
+                var totalImages = 100000;
+                var totalTexts = totalImages;
+                id = Math.floor(Math.random() * totalImages);
+
+
+                var fullUrl = 'https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg';
+                var image_file = file.createWriteStream('/app/images');
+                var request = https.get(fullUrl, function (response) {
+                    response.pipe(image_file);
+                });
+
+                return replyImage('https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg');
+            }
+
+            // if (event.source.groupId != acgmShitGameGroup)
+            //   return;
             //Only for shit game group, that is reply image randomly    
             for (var e in userTextToResponseResultMapping) {
                 var resArray = userTextToResponseResultMapping[e];
@@ -181,21 +210,21 @@ bot.on('message', function (event) {
                             return replayMessage(valueInUserTextToResponseResultMapping);
                         else
                             return replyImage(valueInUserTextToResponseResultMapping);
-                    }else if (isContainsString('大頭貼')) {
-                	//getImageListFromImgur();
-			        var totalImages = 100000;
-                	var totalTexts  = totalImages;
-                    id = Math.floor(Math.random() * totalImages);
-                    
-                    var fullUrl = 'https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg';
-                    var image_file = file.createWriteStream('/app/images');
-                    var request = https.get(fullUrl, function(response) {
-                        response.pipe(image_file);
-                        //sharp.resize({ height: 200, width: 200 }).toFile('/app/des_images');
-                    });
+                    } else if (isContainsString('大頭貼')) {
+                        //getImageListFromImgur();
+                        var totalImages = 100000;
+                        var totalTexts = totalImages;
+                        id = Math.floor(Math.random() * totalImages);
 
-               		return replyImage('https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg');
-		    }
+                        var fullUrl = 'https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg';
+                        var image_file = file.createWriteStream('/app/images');
+                        var request = https.get(fullUrl, function (response) {
+                            response.pipe(image_file);
+                            //sharp.resize({ height: 200, width: 200 }).toFile('/app/des_images');
+                        });
+
+                        return replyImage('https://www.thiswaifudoesnotexist.net/example-' + id + '.jpg');
+                    }
             }
     }
 });
@@ -215,8 +244,8 @@ app.get('/test', function (req, res) {
     res.send('test');
     var fullUrl = 'http://hotdoghotgo.dlinkddns.com/pixmicat/src/acgm.jpg';
     var image_file = file.createWriteStream('/app/node_modules/acgm.jpg');
-    var request = http.get(fullUrl, function(response) {
-    response.pipe(image_file);
+    var request = http.get(fullUrl, function (response) {
+        response.pipe(image_file);
     });
 });
 
@@ -224,8 +253,8 @@ app.use(express.static('public'));
 app.use(express.static(__dirname + '/public'));
 app.use(express.static('files'));
 //Serves all the request which includes /images in the url from Images folder
-app.use('/images', express.static(__dirname + '/images'), serveIndex('images', {'icons': true}));
-app.use('/node_modules', express.static(__dirname + '/node_modules'), serveIndex('node_modules', {'icons': true}));
+app.use('/images', express.static(__dirname + '/images'), serveIndex('images', { 'icons': true }));
+app.use('/node_modules', express.static(__dirname + '/node_modules'), serveIndex('node_modules', { 'icons': true }));
 
 var server = app.listen(process.env.PORT || 8080, function () {
     var port = server.address().port;

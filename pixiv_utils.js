@@ -7,16 +7,17 @@ const PixivApi = require('pixiv-api-client');
 const pixivImg = require("pixiv-img")
 const pixiv = new PixivApi();
 
-async function pixivInitAndDrawPopularImage() {
+async function pixivInitAndDrawPopularImage(key) {
     try {
-        const word = 'R-18';
+        const word = 'R-18 ' + key;
         var res;
         await pixiv.login('hymen81', '0806449').then(() => {
             var dateNow = new Date();
             var dateBefore180Days = dateNow.setDate(dateNow.getDate() - 720);
+            var dateBefore2Days = dateNow.setDate(dateNow.getDate() - 2);
             var options = {
-                sort: 'date_asc',
-                start_date: randomDate(new Date(), new Date(dateBefore180Days))
+                sort: 'date_desc',
+                start_date: randomDate(new Date(dateBefore2Days), new Date(dateBefore180Days))
             };
             return pixiv.searchIllustPopularPreview(word, options).then(json => {
 
