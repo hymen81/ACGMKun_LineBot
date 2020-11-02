@@ -13,8 +13,8 @@ async function pixivInitAndDrawPopularImage(key) {
         var res;
         await pixiv.login('hymen81', '0806449').then(() => {
             var dateNow = new Date();
-            var dateBefore180Days = dateNow.setDate(dateNow.getDate() - 720);
-            var dateBefore2Days = dateNow.setDate(dateNow.getDate() - 2);
+            var dateBefore180Days = dateNow.setDate(dateNow.getDate() - 30);
+            var dateBefore2Days = dateNow.setDate(dateNow.getDate());
             var random = randomDate(new Date(), new Date(dateBefore180Days));
             
             var options = {
