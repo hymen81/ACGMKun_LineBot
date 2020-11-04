@@ -118,7 +118,7 @@ bot.on('message', function (event) {
             .then(value => {
                 console.log(value); // {name: 'xxx.png'}	
                 if(value == 'not_found')
-                     {replayMessage('找不到');
+                     {return replayMessage('找不到');
                     
             }
 
