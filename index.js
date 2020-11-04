@@ -117,6 +117,15 @@ bot.on('message', function (event) {
         pixivUtils.pixivInitAndDrawPopularImage(key)
             .then(value => {
                 console.log(value); // {name: 'xxx.png'}	
+                if(value == 'not_found')
+                     {replayMessage('找不到');
+                    
+            }
+
+
+
+
+            
                 var url = 'https://linebotbl.herokuapp.com/' + value;
                 return event.reply({
                     type: 'image',

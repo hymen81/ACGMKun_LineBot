@@ -13,7 +13,7 @@ async function pixivInitAndDrawPopularImage(key) {
         var res;
         await pixiv.login('hymen81', '0806449').then(() => {
             var dateNow = new Date();
-            var dateBefore180Days = dateNow.setDate(dateNow.getDate() - 30);
+            var dateBefore180Days = dateNow.setDate(dateNow.getDate() - 720);
             var dateBefore2Days = dateNow.setDate(dateNow.getDate());
             var random = randomDate(new Date(), new Date(dateBefore180Days));
             
@@ -21,9 +21,25 @@ async function pixivInitAndDrawPopularImage(key) {
                 sort: 'date_desc',
                 start_date: random
             };
-            return pixiv.searchIllustPopularPreview(word, options).then(json => {
 
+            //var searchInstance = pixiv.illustRanking(word, options);
+
+            /*return Promise.all([searchInstance]).then(json => { 
+                console.log(json);
                 var img_url = json.illusts[Math.floor(Math.random() % json.illusts.length)].image_urls.medium
+                // console.log(json.illusts);
+                 //var img_url = json.illusts[0].image_urls.medium
+                 res = saveImageFromPixivUrl(img_url);
+              });*/
+
+            return pixiv.searchIllustPopularPreview(word, options).then(json => {
+                
+                console.log(json);
+                console.log(Math.floor((Math.random()*100000) % json.illusts.length));
+                json.illusts = json.illusts.filter(item=>item.total_bookmarks > 200);
+                if(json.illusts.length == 0)
+                    return res = 'not_found';
+                var img_url = json.illusts[Math.floor((Math.random()*100000) % json.illusts.length)].image_urls.medium
                // console.log(json.illusts);
                 //var img_url = json.illusts[0].image_urls.medium
                 res = saveImageFromPixivUrl(img_url);
@@ -55,7 +71,7 @@ async function pixivInitAndDrawPRankingImage() {
             }
             return pixiv.illustRanking(options).then(json => {
 
-                var img_url = json.illusts[Math.floor(Math.random() * json.illusts.length)].image_urls.medium
+                var img_url = json.illusts[Math.floor((Math.random()*100000) % json.illusts.length)].image_urls.medium
                 res = saveImageFromPixivUrl(img_url);
             })
         });
