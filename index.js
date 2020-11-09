@@ -175,7 +175,7 @@ bot.on('message', function (event) {
             }
 
             if (isContainsString('社辦')) {
-                var fullUrl = 'http://hotdoghotgo.dlinkddns.com/pixmicat/src/acgm.jpg';
+                var fullUrl = 'http://hotdoghotgogogo.myqnapcloud.com/pixmicat/src/acgm.jpg';
                 var random = getRandomEx(1, 10000);
                 var image_file = file.createWriteStream('/app/node_modules/' + random + '.jpg');
                 var request = http.get(fullUrl, function (response) {
