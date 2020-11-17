@@ -11,7 +11,7 @@ async function pixivInitAndDrawPopularImage(key) {
     try {
         const word = 'R-18 ' + key;
         var res;
-        await pixiv.login('hymen81', '0806449').then(() => {
+        await pixiv.login('user_swan4473', 'acgmkunacgmkun').then(() => {
             var dateNow = new Date();
             var dateBefore180Days = dateNow.setDate(dateNow.getDate() - 720);
             var dateBefore2Days = dateNow.setDate(dateNow.getDate());
@@ -59,7 +59,7 @@ async function pixivInitAndDrawPRankingImage() {
     try {
         const word = 'R-18';
         var res;
-        await pixiv.login('hymen81', '0806449').then(() => {
+        await pixiv.login('user_swan4473', 'acgmkunacgmkun').then(() => {
             var dateNow = new Date();
             var dateBefore180Days = dateNow.setDate(dateNow.getDate() - 17);
             dateNow = new Date();
