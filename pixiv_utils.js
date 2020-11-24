@@ -36,7 +36,7 @@ async function pixivInitAndDrawPopularImage(key) {
                 
                 console.log(json);
                 console.log(Math.floor((Math.random()*100000) % json.illusts.length));
-                json.illusts = json.illusts.filter(item=>item.total_bookmarks > 200);
+                json.illusts = json.illusts.filter(item=>item.total_bookmarks > 50);
                 if(json.illusts.length == 0)
                     return res = 'not_found';
                 var img_url = json.illusts[Math.floor((Math.random()*100000) % json.illusts.length)].image_urls.medium
