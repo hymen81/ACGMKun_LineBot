@@ -156,7 +156,7 @@ bot.on('message', function (event) {
                     }
                 }
 
-                pixivUtils.pixivInitAndDrawPRankingImage()
+                pixivUtils..pixivInitAndDrawPopularImage('*')
                     .then(value => {
                         console.log(value); // {name: 'xxx.png'}	
                         var url = 'https://linebotbl.herokuapp.com/' + value;
