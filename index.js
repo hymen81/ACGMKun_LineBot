@@ -140,35 +140,7 @@ bot.on('message', function (event) {
             var acgmAzurGroup = 'Cc9ac44ec441958449f9091ebe252661e';
             var acgmShitGameGroup = 'C9f5fe046212c141c9adab227ea81c664';
 
-            if (
-                // event.source.groupId == acgmAzurGroup 		
-                isContainsString('髒圖')
-            ) {
-                var s = event.message.text.toLowerCase();
-                if (s.indexOf('[') >= 0 && s.indexOf(']') > s.indexOf('[')) {
-                    var key = s.substr(s.indexOf('[') + 1, s.indexOf(']') - s.indexOf('[') - 1);
-                    //return drawPopularImage(key);
-                }
-
-                for (var i = 0; i < keyowrdCN.length; i++) {
-                    if (isContainsString(keyowrdCN[i])) {
-                        //return drawPopularImage(keyowrd[i]);
-                    }
-                }
-
-                /*pixivUtils.pixivInitAndDrawPopularImage('*')
-                    .then(value => {
-                        console.log(value); // {name: 'xxx.png'}	
-                        var url = 'https://linebotbl.herokuapp.com/' + value;
-                        return event.reply({
-                            type: 'image',
-                            originalContentUrl: url,
-                            previewImageUrl: url
-                        });
-                    }).catch(error => { console.log('caught', error.message); });*/
-
-            }
-
+          
             if (isContainsString('update')) {
                 getImageListFromImgur();
                 return replayMessage(update_success_msg_string);
