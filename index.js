@@ -147,16 +147,16 @@ bot.on('message', function (event) {
                 var s = event.message.text.toLowerCase();
                 if (s.indexOf('[') >= 0 && s.indexOf(']') > s.indexOf('[')) {
                     var key = s.substr(s.indexOf('[') + 1, s.indexOf(']') - s.indexOf('[') - 1);
-                    return drawPopularImage(key);
+                    //return drawPopularImage(key);
                 }
 
                 for (var i = 0; i < keyowrdCN.length; i++) {
                     if (isContainsString(keyowrdCN[i])) {
-                        return drawPopularImage(keyowrd[i]);
+                        //return drawPopularImage(keyowrd[i]);
                     }
                 }
 
-                pixivUtils.pixivInitAndDrawPopularImage('*')
+                /*pixivUtils.pixivInitAndDrawPopularImage('*')
                     .then(value => {
                         console.log(value); // {name: 'xxx.png'}	
                         var url = 'https://linebotbl.herokuapp.com/' + value;
@@ -165,7 +165,7 @@ bot.on('message', function (event) {
                             originalContentUrl: url,
                             previewImageUrl: url
                         });
-                    }).catch(error => { console.log('caught', error.message); });
+                    }).catch(error => { console.log('caught', error.message); });*/
 
             }
 
