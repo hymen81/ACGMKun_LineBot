@@ -17,7 +17,7 @@ const keyowrdCN = ['眼鏡', '馬尾', '蘿莉', '絲襪'];
 
 
 
-
+var a= 1;
 
 var config = JSON.parse(file.readFileSync('config.config', 'utf8'));
 
